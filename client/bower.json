@@ -1,0 +1,27 @@
+{
+  "name": "client",
+  "homepage": "https://github.com/broerjuang/JS_dynamic_elements_and_events",
+  "authors": [
+    "broerjuang <juangwiantoro@gmail.com>"
+  ],
+  "description": "the client side of JS dynamic elements and events",
+  "main": "index.html",
+  "keywords": [
+    "jquery",
+    "ajax",
+    "js",
+    "es6"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
