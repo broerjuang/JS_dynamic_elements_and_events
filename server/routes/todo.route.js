@@ -1,9 +1,20 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express')
+const router = express.Router()
+const controller = require('../controllers/todo.controller')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  res.send('respond with a resource');
-});
+// GET all todos
+router.get('/todods', controller.list)
+
+// POST a todo
+router.post('/todos', controller.build)
+
+// GET to do by its id
+router.get('/todos/:todo_id', controller.find)
+
+// PUT todo by its id
+router.get('/todos/:todo_id', controller.update)
+
+// delete todo by its id
+router.delete('/todos/:todo_id', controller.destroy)
 
 module.exports = router;
