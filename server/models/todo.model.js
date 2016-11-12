@@ -4,7 +4,7 @@ const Schema = mongoose.Schema
 const Increment = require('mongoose-sequence')
 
 const todoSchema = new Schema({
-  todo_id : {type: number, unique: true},
+  todo_id : {type: Number, unique: true},
   title: {type: String, required: true},
   content : {type: String},
   status: {type: String}
