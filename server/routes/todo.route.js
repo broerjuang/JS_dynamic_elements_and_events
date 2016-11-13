@@ -3,7 +3,7 @@ const router = express.Router()
 const controller = require('../controllers/todo.controller')
 
 // GET all todos
-router.get('/todods', controller.list)
+router.get('/todos', controller.list)
 
 // POST a todo
 router.post('/todos', controller.build)

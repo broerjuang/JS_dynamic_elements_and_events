@@ -22,7 +22,8 @@
   <link rel="stylesheet" href="css/normalize.css">
   <link rel="stylesheet" href="css/skeleton.css">
   <link rel="stylesheet" href="css/custom.css">
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="javascript/script.js"> </script>
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <link rel="icon" type="image/png" href="images/favicon.png">
@@ -41,10 +42,10 @@
             <div class="four columns">
             </div>
             <div class="six columns todos-text">
-              <input class="u-full-width" type="text" placeholder="What do you wanna do today?" id="exampleEmailInput">
+              <input class="u-full-width" id="todo_text_datum" type="text" placeholder="What do you wanna do today?">
             </div>
             <div class="two columns">
-              <input class="button button-primary" type="submit" value="Submit">
+              <input class="button button-primary" id="createTodo" type="submit" value="Submit">
             </div>
         </form>
       </div>
@@ -54,28 +55,9 @@
           <div class="four columns">
           </div>
           <div class="eight columns todos-description">
-            <form action="post">
-              <div class="row">
-                <div class='detail ten columns'>
-                  <input type="checkbox" name="vehicle" value="Bike"><span>
-                    <del>Farm-to-table etsy nostrud.</del>
-                  </span><br>
-                </div>
-                <div class="two columns delete">
-                  x
-                </div>
+            <div class="todo_detail">
+              <!-- all todos detail will appear here -->
               </div>
-              <div class="row">
-                <div class='detail ten columns'>
-                  <input type="checkbox" name="vehicle" value="Bike"><span>
-                    Another Mastard.
-                  </span><br>
-                </div>
-                <div class="two columns delete">
-                  x
-                </div>
-              </div>
-            </form>
           </div>
       </form>
     </div>

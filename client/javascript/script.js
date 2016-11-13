@@ -1,16 +1,30 @@
 $(document).ready(() => {
+  const api = `http://localhost:3000/api`,
+
+// ----------------------------------------------------------------
+// Energize!
+// ----------------------------------------------------------------
+
+// get all todos
   showAll()
+
+
 })
 
 
+// $(document).ready(() => {
+//   showAll()
+// })
+//
+// // showing all todos data from database
+//
 let showAll = () => {
   $.ajax({
     url         : 'http://localhost:3000/api/todos',
-    type        : 'GET',
+    type        : 'POST',
     dataType    : 'JSON',
     contentType : 'application.x-www-form-urlencoded',
     success     : (todo_lists) => {
-      console.log(todo_lists);
       let todo_datum =''
       for(var i = 0; i < todo_lists.length; i += 1) {
         todo_datum += `
@@ -31,3 +45,6 @@ let showAll = () => {
     }
   })
 }
+
+
+// create new todo list

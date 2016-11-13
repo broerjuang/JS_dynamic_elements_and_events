@@ -4,7 +4,7 @@ const Todo = require('../models/todo.model')
 module.exports = {
   // Listing all todo based on the data inside the database
   list(req, res) {
-    TODO
+    Todo
       .find()
       .then((todos) => res.json(todos))
       .catch((err) => res.json(err))
