@@ -1,0 +1,15 @@
+.container {
+  text-align: center;
+  margin-top: 10%;
+}
+
+
+.todos-text {
+  margin-left: 200px;
+}
+
+.todos-description {
+  margin-left: 210px;
+  text-align: left;
+  font-size: 1.3em;
+}
