@@ -1,6 +1,8 @@
 .container {
   text-align: center;
   margin-top: 10%;
+  padding: 20px;
+  border-radius: 20px;
 }
 
 
@@ -11,5 +13,14 @@
 .todos-description {
   margin-left: 210px;
   text-align: left;
-  font-size: 1.3em;
+  font-size: 1.2em;
+  color: #3498db;
+}
+
+.todos-description span {
+  margin-left: 10px;
+}
+
+.delete {
+  color: #c0392b;
 }
