@@ -12,7 +12,7 @@ router.post('/todos', controller.build)
 router.get('/todos/:todo_id', controller.find)
 
 // PUT todo by its id
-router.get('/todos/:todo_id', controller.update)
+router.put('/todos/:todo_id', controller.update)
 
 // delete todo by its id
 router.delete('/todos/:todo_id', controller.destroy)
