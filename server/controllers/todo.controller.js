@@ -5,7 +5,7 @@ module.exports = {
   // Listing all todo based on the data inside the database
   list(req, res) {
     Todo
-      .find()
+      .find({})
       .then((todos) => res.json(todos))
       .catch((err) => res.json(err))
   },
@@ -15,9 +15,7 @@ module.exports = {
     console.log(req.body);
     // I don't put any id because mongoose will generate it
     let todoData = {
-      title : req.body.title,
-      content : req.body.content,
-      status : req.body.status
+      content : req.body.content
     }
     // generating todo based on todo model using promise
     Todo
@@ -29,7 +27,7 @@ module.exports = {
   // This will find the todo based on its id
   find(req, res) {
     Todo
-      .find({todo_id : req.params.todo_id})
+      .findOne({todo_id : req.params.todo_id})
       .then((todo) => res.json(todo))
       .catch((err) => res.json(err))
   },
@@ -37,15 +35,16 @@ module.exports = {
   // This will update todo based on its id
   update(req, res) {
     Todo
-      .findOneAndUpdate({todo_id: req.params.todo_id}, req.body, {new: true})
+      .findOneAndUpdate({todo_id: req.params.todo_id}, { content : req.body.content}, {new: true})
       .then((todo) => res.json(todo))
       .catch((err) => res.json(err))
   },
 
   destroy(req, res) {
+    console.log(req.params.todo_id);
     Todo
       .findOneAndRemove({todo_id: req.params.todo_id})
-      .then(() => {message: 'it has been removed'})
+      .then((data) => res.json(data))
       .catch((err) => res.json(err))
   }
 

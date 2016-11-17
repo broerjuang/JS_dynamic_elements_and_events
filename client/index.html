@@ -1,87 +1,184 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>memo</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- jquery -->
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.1.1.min.js"></script>
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  </head>
+  <body>
 
-  <!-- Basic Page Needs
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta charset="utf-8">
-  <title>Your page title here :)</title>
-  <meta name="description" content="">
-  <meta name="author" content="">
-
-  <!-- Mobile Specific Metas
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- FONT
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link href="//fonts.googleapis.com/css?family=Raleway:400,300,600" rel="stylesheet" type="text/css">
-
-  <!-- CSS
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/custom.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-  <script type="text/javascript" src="javascript/script.js"> </script>
-  <!-- Favicon
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <link rel="icon" type="image/png" href="images/favicon.png">
-
-</head>
-<body>
-
-  <!-- Primary Page Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <div class="container">
-    <div class="row">
-      <div class="todos">
-        <h4>Todos</h4>
-        <!-- The above form looks like this -->
-        <form>
-            <div class="four columns">
-            </div>
-            <div class="six columns todos-text">
-              <input class="u-full-width" id="todo_text_datum" type="text" placeholder="What do you wanna do today?">
-            </div>
-            <div class="two columns">
-              <input class="button button-primary" id="createTodo" type="submit" value="Submit">
-            </div>
-        </form>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title" id="myModalLabel">Update</h4>
+          </div>
+          <!-- form -->
+          <div id="form-modal-edit"></div>
+          <!-- /form -->
+        </div>
       </div>
     </div>
-    <div class="row">
-      <form>
-          <div class="four columns">
-          </div>
-          <div class="eight columns todos-description">
-            <div class="todo_detail">
-              <!-- all todos detail will appear here -->
-              </div>
-          </div>
-      </form>
-    </div>
-  </div>
-<!-- End Document
-  –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-</body>
-</html>
+    <!-- / modal -->
 
-<!-- let newTodo = ()=> {
-  $('#createTodo').on('click', () => {
-    let todo_datum = {
-      content: $('#todo_text_datum').val()
-    }
+  <div class="container">
+    <h1 class="text-center">Todo List</h1>
+    <!-- input -->
+    <div class="form-group">
+      <label for="content">Content</label>
+      <input type="text" class="form-control" id="content-input" placeholder="Ex : hallo world">
+    </div>
+    <button class="btn btn-success" type="button" name="button" onclick="createTodo()">Add</button>
+    <!-- list data -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Todo Id</th>
+            <th>Content</th>
+            <th>Option</th>
+          </tr>
+        </thead>
+        <tbody id="list-memo">
+
+        </tbody>
+      </table>
+    </div>
+
+  <script type="text/javascript">
+  // create data function
+  function createTodo(){
     $.ajax({
-      url         : 'http://localhost:3000/api/todos',
-      type        : 'POST',
-      dataType    : 'JSON',
-      data        : todo_datum,
-      success     : (apaaja) => {
-        alert(apaaja);
-        }
+      url:  "http://localhost:3000/api/todos",
+      method: 'post',
+      contentType: 'application/x-www-form-urlencoded',
+      data:{
+        content : $('#content-input').val()
+      },
+      success: function(data) {
+        console.log(data)
+        $('#content-input').val("")
+        let listHTML = "";
+        listHTML =
+        `
+        <tr id="list${data.todo_id}">
+          <td>${data.todo_id}</td>
+          <td>${data.content}</td>
+          <td>
+          <button class="btn btn-warning" type="button" name="button" onclick="beforeEdit('${data.todo_id}')">Edit</button>
+          <button class="btn btn-danger" type="button" name="button" onclick="deleteData('${data.todo_id}')">Delete</button>
+          </td>
+        </tr>
+        `
+        $('#list-memo').append(listHTML);
       }
     })
+  } // create data function
 
-  })
-} -->
+  // before edit data
+  function beforeEdit(id){
+    $.ajax({
+      url:  `http://localhost:3000/api/todos/${id}`,
+      method: 'get',
+      contentType: 'application/x-www-form-urlencoded',
+      success: function(data) {
+        console.log(data);
+        $('#removeForm').remove();
+        let editHTML =
+        `
+        <div id="removeForm">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="content">Content</label>
+              <input type="text" class="form-control" id="content-input-edit" placeholder="Ex : hallo world" value="${data.content}">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" onclick="editData('${data.todo_id}')">Save changes</button>
+          </div>
+        </div>
+        `
+        $('#form-modal-edit').append(editHTML)
+        $('#myModal').modal('show')
+      }
+    })
+  } // before edit data
+
+  // edit data
+  function editData(id){
+    $.ajax({
+      url:  `http://localhost:3000/api/todos/${id}`,
+      method: 'put',
+      contentType: 'application/x-www-form-urlencoded',
+      data :{
+        content: $('#content-input-edit').val()
+      },
+      success: function(data) {
+        $(`#list${id}`).replaceWith(`
+          <tr id="list${data.todo_id}">
+            <td>${data.todo_id}</td>
+            <td>${data.content}</td>
+            <td>
+            <button class="btn btn-warning" type="button" name="button" onclick="beforeEdit('${data.todo_id}')">Edit</button>
+            <button class="btn btn-danger" type="button" name="button" onclick="deleteData('${data.todo_id}')">Delete</button>
+            </td>
+          </tr>
+        `)
+        $('#myModal').modal('hide')
+      }
+    })
+  } // edit data
+
+  // delete data function
+  function deleteData(id){
+    $.ajax({
+      url:  `http://localhost:3000/api/todos/${id}`,
+      method: 'delete',
+      contentType: 'application/x-www-form-urlencoded',
+      success: function(data) {
+        console.log(data)
+        $(`#list${data.todo_id}`).remove()
+      }
+    })
+  } // delete data function
+
+  // ini yang pertama kali di jalakan ketika browser di buka
+  $( document ).ready(function() {
+    $.ajax({
+      url:  "http://localhost:3000/api/todos",
+      method: 'get',
+      contentType: 'application/x-www-form-urlencoded',
+      success: function(data) {
+        console.log(typeof(data));
+        console.log(data);
+        let listHTML = "";
+        for(let i = 0; i < data.length; i++){
+          listHTML +=
+          `
+          <tr id="list${data[i].todo_id}">
+            <td>${data[i].todo_id}</td>
+            <td>${data[i].content}</td>
+            <td>
+            <button class="btn btn-warning" type="button" name="button" onclick="beforeEdit('${data[i].todo_id}')">Edit</button>
+            <button class="btn btn-danger" type="button" name="button" onclick="deleteData('${data[i].todo_id}')">Delete</button>
+            </td>
+          </tr>
+          `
+        }
+        $('#list-memo').append(listHTML);
+      }
+    })
+  }) // end of main function
+
+  </script>
+  </body>
+</html>
