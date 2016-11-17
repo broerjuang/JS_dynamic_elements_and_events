@@ -1,30 +1,17 @@
 $(document).ready(() => {
-  const api = `http://localhost:3000/api`,
-
-// ----------------------------------------------------------------
-// Energize!
-// ----------------------------------------------------------------
-
-// get all todos
   showAll()
-
-
+  submitNewTodo()
 })
 
 
-// $(document).ready(() => {
-//   showAll()
-// })
-//
-// // showing all todos data from database
-//
 let showAll = () => {
   $.ajax({
     url         : 'http://localhost:3000/api/todos',
-    type        : 'POST',
+    type        : 'GET',
     dataType    : 'JSON',
     contentType : 'application.x-www-form-urlencoded',
     success     : (todo_lists) => {
+      console.log(todo_lists);
       let todo_datum =''
       for(var i = 0; i < todo_lists.length; i += 1) {
         todo_datum += `
@@ -46,5 +33,21 @@ let showAll = () => {
   })
 }
 
-
-// create new todo list
+let submitNewTodo = () => {
+  $('#createTodo').on('click', (e) => {
+    e.preventDefault()
+    let data_todo = {
+      content : $('#todo_text_datum').val()
+    }
+    $.ajax({
+      url         : 'http://localhost:3000/api/todos',
+      type        : 'POST',
+      dataType    : 'JSON',
+      contentType : 'application/x-www-form-urlencoded',
+      data        : data_todo,
+      success      : (new_todo) => {
+        alert('new_todo')
+      }
+    })
+  })
+}

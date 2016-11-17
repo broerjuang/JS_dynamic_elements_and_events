@@ -12,6 +12,7 @@ module.exports = {
 
   // creating todo data based on model
   build(req, res) {
+    console.log(req.body);
     // I don't put any id because mongoose will generate it
     let todoData = {
       title : req.body.title,
